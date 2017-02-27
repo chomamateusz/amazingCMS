@@ -1,0 +1,104 @@
+<template>
+  <require from="trumbowyg/dist/ui/trumbowyg.min.css"></require>
+  <require from="../jspm_packages/npm/pickerjs@0.1.1/dist/picker.css"></require>
+  <require from="./start-trumbowyg"></require>
+  <require from="./start-picker"></require>
+  <require from="./imageUpload"></require>
+  <require from="./date"></require>
+  <div class="container">
+    <div if.bind="noItems" class="noitems">
+      ${noItems}
+    </div>
+    <div if.bind="!noItems">
+      <div class="row">
+        <div class="col s12 m3 l3">
+          <div class="item-edit-visible-switch" if.bind="canBeHidden">
+            <md-switch md-label-on="Wł." md-label-off="Wył." md-checked.bind="itemWorkingCopy.meta.visible" change.delegate="changeVisibility()"></md-switch>
+          </div>
+        </div>
+        <div class="col s12 m3 l3">
+          <button md-button click.delegate="saveContentChanges()" class="btn-wide ${contentChanged ? '' : 'disabled'}">Zapisz!</button>
+        </div>
+        <div class="col s12 m3 l3">
+          <button if.bind="canBeSentBackToList" md-button click.delegate="backToMainItem()" class="btn-wide">Lista</button>
+        </div>
+        <div class="col s12 m3 l3">
+          <button if.bind="canBeDeleted" md-button click.delegate="deleteItem()" class="red btn-wide">Usuń</button>
+        </div>
+      </div>
+      <div>
+      </div>
+      <div repeat.for="subitem of subitems" class="collection with-header" style="overflow: visible;">
+        <h4 class="collection-header">${subitem.title}</h4>
+        <ul if.bind="subitem.hint != undefined" md-collapsible>
+          <li>
+            <div class="collapsible-header"><i class="fa fa-question-circle-o"></i>Podpowiedź</div>
+            <div class="collapsible-body">
+              <p>${subitem.hint}</p>
+            </div>
+          </li>
+        </ul>
+        <div class="collection-item ${subitem.type == 'switch' ? 'center' : ''}">
+          <!--TXT DISABLED-->
+          <!--<input if.bind="subitem.visible && subitem.type == 'txt' && subitem.name == 'name'" type="text" class="disabled" disabled value.two-way="itemWorkingCopy.data[subitem.name].val"
+						input.delegate="changed(subitem.name)">-->
+          <!--TXT-->
+          <input if.bind="subitem.visible && subitem.type == 'txt'" disabled.bind="subitem.params.disabled" type="text" value.two-way="itemWorkingCopy.data[subitem.name].val"
+            input.delegate="changed(subitem.name)">
+          <!--COLOR-->
+          <input if.bind="subitem.visible && subitem.type == 'color'" disabled.bind="subitem.params.disabled" type="color" value.two-way="itemWorkingCopy.data[subitem.name].val"
+            input.delegate="changed(subitem.name)">
+          <!--LTXT-->
+          <textarea if.bind="subitem.visible && subitem.type == 'ltxt'" id="editor" start-trumbowyg.bind="subitem.name" value.two-way="itemWorkingCopy.data[subitem.name].val"
+            input.delegate="changed(subitem.name)"></textarea>
+          <!--IMG-->
+          <div if.bind="subitem.visible && subitem.type == 'img'" class="drag-img-subitem">
+            <div>
+              <img src.two-way="itemWorkingCopy.data[subitem.name].val" id="${subitem.name}" />
+            </div>
+            <div>
+              <a md-button click.delegate="imageUpload(subitem.name, subitem.params)" class="btn-wide">Zmień!</a>
+            </div>
+          </div>
+          <!--DATE-->
+          <input if.bind="subitem.type == 'date'" type="text" change.delegate="changed(subitem.name)" start-picker="subitem-name.bind: subitem.name; format.bind: 'YYYY-MM-DD'; timestamp-conversion.bind: true;"
+            value.two-way="itemWorkingCopy.data[subitem.name].val | date" />
+          <!--TIME-->
+          <input if.bind="subitem.type == 'time'" type="text" change.delegate="changed(subitem.name)" start-picker="subitem-name.bind: subitem.name; format.bind: 'HH:mm'; timestamp-conversion.bind: false;"
+            value.two-way="itemWorkingCopy.data[subitem.name].val" />
+          <!--NEST-->
+          <button if.bind="subitem.type == 'nest'" md-button click.delegate="goToNestedEdit(subitem.name)" class="red btn-wide">Przejdź</button>
+          <!--SELECT-->
+          <select md-select="label: " if.bind="subitem.type == 'select'" change.delegate="changed(subitem.name)" value.two-way="itemWorkingCopy.data[subitem.name].val">
+						<option value="" disabled>Wybierz</option>
+						<!--OPTIONS FROM PARAMS-->
+						<option if.bind="!subitem.params.from" repeat.for="option of subitem.params.options" value="${option.val}">${option.caption}</option>
+						<!--OPTIONS FROM ITMES OF OTHER MAIN ITEM-->
+						<div if.bind="subitem.params.from != false" >
+							<option repeat.for="option of subitem.params.fromItems" value="${option.meta.key}">${option.data.title.val}</option>
+						</div>
+					</select>
+          <!--SELECT-MULTIPLE-->
+          <div if.bind="subitem.type == 'select-multiple'">
+            <select multiple md-select="ref: selectabc" change.delegate="changed(subitem.name)" value.two-way="itemWorkingCopy.data[subitem.name].val">
+              <option value="" disabled>Wybierz</option>
+              <!--OPTIONS FROM PARAMS-->
+              <div if.bind="!subitem.params.from" >
+                <option repeat.for="option of subitem.params.options" value="${option.val}">${option.caption}</option>
+              </div>
+              <!--OPTIONS FROM ITMES OF OTHER MAIN ITEM-->
+              <div if.bind="subitem.params.from != false" >
+                <option repeat.for="option of subitem.params.fromItems" value="${option.meta.key}">${option.data.title.val}</option>
+              </div>
+					  </select>
+          </div>
+          <!--SWITCH-->
+          <div if.bind="subitem.type == 'switch'">
+            <md-switch md-label-on="${subitem.params.switch.on}" md-label-off="${subitem.params.switch.off}" md-checked.two-way="itemWorkingCopy.data[subitem.name].val"
+              change.delegate="changed(subitem.name)"></md-switch>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

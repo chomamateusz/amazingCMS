@@ -1,0 +1,15 @@
+<template>
+  <require from="font-awesome/css/font-awesome.min.css"></require>
+  <a md-sidenav-collapse="ref.bind: sideNavCloseOnClick;" class="side-bar-toggle-btn"><i class="fa fa-bars"></i></a>
+  <a if.bind="firebaseAuth.user != false" class="right side-bar-power-off-btn" click.trigger="logout()"><i class="fa fa-power-off"></i></a>
+  <md-sidenav view-model.ref="sideNavCloseOnClick" md-edge="left" md-close-on-click="true">
+    <ul>
+      <div repeat.for="mainItem of mainItems">
+        <li md-waves if.bind="mainItem.visible == true" click.trigger="goToDrag(mainItem.key)"><a href="#">${mainItem.title}</a></li>
+        <li md-waves if.bind="mainItem.visible == false && (mainItem.goToRoute != undefined && mainItem.goToRoute != '')" click.trigger="goToRoute(mainItem.goToRoute)"><a href="#">${mainItem.title}</a></li>
+        <li md-waves if.bind="mainItem.visible == false && (mainItem.extarnalLink != undefined && mainItem.extarnalLink != '')" click.trigger="extarnalLink(mainItem.extarnalLink)"><a href="#">${mainItem.title}</a></li>
+        <hr if.bind="mainItem.separator == true">
+      </div>
+    </ul>
+  </md-sidenav>
+</template>

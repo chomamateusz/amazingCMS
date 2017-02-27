@@ -1,0 +1,11 @@
+{
+  "rules": {
+    ".read": true,
+    ".write": "auth != null",
+    "mainItemsData": {
+        "posts":{
+        ".indexOn": ["data/name/val"]
+        }
+    }
+  }
+}

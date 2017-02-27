@@ -1,0 +1,41 @@
+<template>
+<div class="login" if.bind="!firebaseAuth.user">
+        <img alt="Logo" src="img/logo.png" />
+
+        <h5 class="orange-txt">Nie jesteś zalogowany! Zaloguj się!</h5>
+
+        <h5 class="red-text">${loginError}</h5>
+
+        <div class="login-box">
+            <form>
+            <div class='row'>
+                <div class='input-field col s12'>
+                <input type='email' name='email' id='email' value.bind="email"/>
+                <label for='email'>Adres e-mail</label>
+                </div>
+            </div>
+
+            <div class='row'>
+                <div class='input-field col s12'>
+                <input type='password' name='password' id='password' value.bind="password"/>
+                <label for='password'>Hasło</label>
+                </div>
+                <!--<label style='float: right;'>
+                                <a class='pink-text' href='#!'><b>Forgot Password?</b></a>
+                </label>-->
+            </div>
+
+            <br />
+
+            <div class='row'>
+            <button type='submit' name='btn_login' class='login-btn btn btn-large waves-effect orange-bg' click.trigger="login()">Zaloguj!</button>
+            </div>
+            </form>
+        </div>
+      <!--<a href="#!">Create account</a>-->
+</div>
+<div class="login" if.bind="firebaseAuth.user">
+    <img alt="Logo" src="img/logo.png" />
+    <h5 class="orange-txt">Jesteś zalogowany! Wybierz pozycję z menu!</h5>
+</div>
+</template>

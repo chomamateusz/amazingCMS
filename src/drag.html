@@ -1,0 +1,41 @@
+<template>
+  <require from="string-truncate"></require>
+  <require from="date"></require>
+  <h4>${mainItemDefs.caption}</h4>
+  <div class="row">
+    <div class="col s12 ${parentMainItemName ? 'm4 l4' : 'm6 l6'}">
+      <button click.trigger="makeNewItem()" class="btn btn-default btn-wide">${mainItemDefs['new-caption']}</button>
+    </div>
+    <div class="col s12 ${parentMainItemName ? 'm4 l4' : 'm6 l6'}">
+      <button if.bind="dragMode" click.trigger="saveChanges()" class="btn btn-default btn-wide ${itemsOrderChanged ? '' : 'disabled'}">Zapisz kolejnosć!</button>
+    </div>
+    <div if.bind="parentMainItemName" class="col s12 m4 l4">
+      <button click.trigger="backToParent()" class="btn btn-default btn-wide">${mainItemDefs['back-to-patent-caption']}</button>
+    </div>
+  </div>
+
+  <!--<button click.trigger="makeNewItem()" class="btn btn-default btn-wide">${mainItemDefs['new-caption']}</button>
+  <button if.bind="dragMode" click.trigger="saveChanges()" class="btn btn-default btn-wide ${itemsOrderChanged ? '' : 'disabled'}">Zapisz kolejnosć!</button>-->
+
+  <div if.bind="noItems" class="noitems">
+    ${noItems}
+  </div>
+  <div oa-sortable="items.bind: dragItems; sorting-class.bind: 'drag-item-sorting'; allow-drag.call: allowDrag($event); moved.call: moved($event);">
+    <div repeat.for="item of dragItems" oa-sortable-item="item.bind: item;" class="drag-item ${item.sortingClass}">
+      <div repeat.for="subitem of subitemsToShow">
+        <div if.bind="$index == 0" class="drag-item-header ${item.meta.visible ? 'drag-item-header-visible' : 'drag-item-header-hidden'}">
+          ${item.data[subitem].val}
+        </div>
+        <div if.bind="$index != 0 && item.data.content.val != undefined" class="drag-item-content" innerhtml.bind="item.data.content.val | truncate:300">
+        </div>
+        <div if.bind="$index != 0 " class="drag-item-content center">
+          ${item.data[subitem].val | date}
+        </div>
+      </div>
+      <div class="drag-item-footer" click.trigger="edit(item.meta.key)">
+        Edytuj!
+        <!--${item.meta.order}-->
+      </div>
+    </div>
+  </div>
+</template>

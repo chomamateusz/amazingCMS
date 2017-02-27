@@ -1,0 +1,18 @@
+<template>
+	<require from="../jspm_packages/npm/cropperjs@0.8.1/dist/cropper.min.css"></require>
+	<require from="../css/cropper.css"></require>
+
+	<div class="cropper-main-wrapper">
+		<img ref="image">
+	</div>
+	<div class="row"></div>
+	<div class="row">
+		<div class="col m4 center">
+			<md-switch md-label-on="JPEG" md-label-off="PNG" md-checked.bind="isJPEG"></md-switch>
+			<br>
+		</div>
+		<div class="col m8">
+			<span>Wybierz PNG w przypadku obrazów z przeźroczystym tłem!</span>
+		</div>
+	</div>
+</template>

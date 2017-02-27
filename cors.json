@@ -1,0 +1,6 @@
+[{
+  "origin": ["http://localhost:9000/", "http://vps352126.ovh.net"],
+  "responseHeader": ["Content-Type"],
+  "method": ["GET"],
+  "maxAgeSeconds": 3600
+}]

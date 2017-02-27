@@ -1,0 +1,21 @@
+<template>
+  <require from="./image-cropper"></require>
+  <require from="../css/modal.css"></require>
+  <div id="imageUploadModal" class="modal" ref="imageUploadModal">
+    <div class="modal-content">
+      <image-cropper view-model.ref="cropperRef" params.bind="cropperParams" current-src.bind="currentImageSrc"></image-cropper>
+      <md-file md-caption="Wybierz zdjęcie" view-model.ref="fileInput" md-label-value.bind="labelValue" change.trigger="previewFile()"></md-file>
+      <div if.bind="selectedFile">
+        Wybrany plik: ${selectedFile.name} (${selectedFile.size} bajtów)
+      </div>
+      <div>
+        <md-progress if.bind="upload.running" repeat.for="size of imageSizes" md-value.two-way="upload.progress[size.key]"></md-progress>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary " click.trigger="agree()">Wrzuć</button>
+      <button type="button" class="btn btn-flat" click.trigger="disagree()" md-button="flat: true;">Anuluj</button>
+      <button md-button  class="btn btn-flat" click.delegate="cropperRef.getFileSize()">Oszacuj rozmiar</button>
+    </div>
+  </div>
+</template>

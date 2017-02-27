@@ -1,0 +1,10 @@
+.cropper-main-wrapper {
+    max-height: 300px;
+    overflow: hidden;
+}
+
+@media(max-width: 480px){
+    .cropper-main-wrapper {
+        max-height: 200px;
+    }
+}

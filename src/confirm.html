@@ -1,0 +1,17 @@
+<template>
+    <require from="../css/modal.css"></require>
+
+	<div class="modal">
+		<div class="modal-content">
+			<h5>${header}</h5>
+			<div>
+				${message}
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-primary" click.delegate="accept()">${btnAccept}</button>
+			<button type="button" class="btn btn-flat" click.delegate="cancel()">${btnCancel}</button>
+		</div>
+	</div>
+
+</template>

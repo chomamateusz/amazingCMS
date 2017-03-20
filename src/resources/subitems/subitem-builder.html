@@ -1,0 +1,74 @@
+<template bindable="subitem, value">
+  <require from="trumbowyg/dist/ui/trumbowyg.min.css"></require>
+  <require from="/jspm_packages/npm/pickerjs@0.1.1/dist/picker.css"></require>
+  <require from="start-trumbowyg"></require>
+  <require from="start-picker"></require>
+  <require from="imageUpload"></require>
+  <require from="date"></require>
+  <require from="resources/subitems/txt/txt"></require>
+  <template if.bind="subitem.visible">
+    <h4 class="collection-header">${subitem.title}</h4>
+    <ul if.bind="subitem.hint != undefined" md-collapsible>
+      <li>
+        <div class="collapsible-header"><i class="fa fa-question-circle-o"></i>Podpowiedź</div>
+        <div class="collapsible-body">
+          <p>${subitem.hint}</p>
+        </div>
+      </li>
+    </ul>
+    <div class="collection-item ${subitem.type == 'switch' ? 'center' : ''}">
+      <!--TXT-->
+      <txt-subitem if.bind="subitem.type == 'txt'" subitem.bind="subitem" value.bind="value"></txt-subitem>
+      <!--COLOR-->
+      <input if.bind="subitem.type == 'color'" disabled.bind="subitem.params.disabled" type="color" value.two-way="value" input.delegate="changed(subitem.name)">
+      <!--LTXT-->
+      <textarea if.bind="subitem.type == 'ltxt'" id="editor" start-trumbowyg.bind="subitem.name" value.two-way="value" input.delegate="changed(subitem.name)"></textarea>
+      <!--IMG-->
+      <div if.bind="subitem.type == 'img'" class="drag-img-subitem">
+        <div>
+          <img src.two-way="value" id="${subitem.name}" />
+        </div>
+        <div>
+          <a md-button click.delegate="imageUpload(subitem.name, subitem.params)" class="btn-wide">Zmień!</a>
+        </div>
+      </div>
+      <!--DATE-->
+      <input if.bind="subitem.type == 'date'" type="text" change.delegate="changed(subitem.name)" start-picker="subitem-name.bind: subitem.name; format.bind: 'YYYY-MM-DD'; timestamp-conversion.bind: true;"
+        value.two-way="value | date" />
+      <!--TIME-->
+      <input if.bind="subitem.type == 'time'" type="text" change.delegate="changed(subitem.name)" start-picker="subitem-name.bind: subitem.name; format.bind: 'HH:mm'; timestamp-conversion.bind: false;"
+        value.two-way="value" />
+      <!--NEST-->
+      <button if.bind="subitem.type == 'nest'" md-button click.delegate="goToNestedEdit(subitem.name)" class="red btn-wide">Przejdź</button>
+      <!--SELECT-->
+      <select md-select="label: " if.bind="subitem.type == 'select'" change.delegate="changed(subitem.name)" value.two-way="value">
+						<option value="" disabled>Wybierz</option>
+						<!--OPTIONS FROM PARAMS-->
+						<option if.bind="!subitem.params.from" repeat.for="option of subitem.params.options" value="${option.val}">${option.caption}</option>
+						<!--OPTIONS FROM ITMES OF OTHER MAIN ITEM-->
+						<div if.bind="subitem.params.from != false" >
+							<option repeat.for="option of subitem.params.fromItems" value="${option.meta.key}">${option.data.title.val}</option>
+						</div>
+					</select>
+      <!--SELECT-MULTIPLE-->
+      <div if.bind="subitem.type == 'select-multiple'">
+        <select multiple md-select="ref: selectabc" change.delegate="changed(subitem.name)" value.two-way="value">
+              <option value="" disabled>Wybierz</option>
+              <!--OPTIONS FROM PARAMS-->
+              <div if.bind="!subitem.params.from" >
+                <option repeat.for="option of subitem.params.options" value="${option.val}">${option.caption}</option>
+              </div>
+              <!--OPTIONS FROM ITMES OF OTHER MAIN ITEM-->
+              <div if.bind="subitem.params.from != false" >
+                <option repeat.for="option of subitem.params.fromItems" value="${option.meta.key}">${option.data.title.val}</option>
+              </div>
+					  </select>
+      </div>
+      <!--SWITCH-->
+      <div if.bind="subitem.type == 'switch'">
+        <md-switch md-label-on="${subitem.params.switch.on}" md-label-off="${subitem.params.switch.off}" md-checked.two-way="value"
+          change.delegate="changed(subitem.name)"></md-switch>
+      </div>
+    </div>
+  </template>
+</template>

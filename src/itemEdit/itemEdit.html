@@ -1,0 +1,15 @@
+<template>
+  <require from="resources/subitems/subitem-builder.html"></require>
+  <require from="itemEdit/item-edit-nav.html"></require>
+  <require from="itemEdit/no-items.html"></require>
+  <div class="container">
+    <!--TODO - maybe it should be a view?-->
+    <no-items if.bind="noItems"></no-items>
+    <template if.bind="!noItems">
+      <item-edit-nav></item-edit-nav>
+      <div repeat.for="subitem of subitems" class="collection with-header" style="overflow: visible;">
+        <subitem-builder subitem.bind="subitem" value.bind="itemWorkingCopy.data[subitem.name].val"></subitem-builder>
+      </div>
+    </template>
+  </div>
+</template>

@@ -1,0 +1,18 @@
+<template bindable="params">
+  <div class="row">
+    <div class="col s12 m3 l3">
+      <div class="item-edit-visible-switch" if.bind="canBeHidden">
+        <md-switch md-label-on="Wł." md-label-off="Wył." md-checked.bind="itemWorkingCopy.meta.visible" change.delegate="changeVisibility()"></md-switch>
+      </div>
+    </div>
+    <div class="col s12 m3 l3">
+      <button md-button click.delegate="saveContentChanges()" class="btn-wide ${contentChanged ? '' : 'disabled'}">Zapisz!</button>
+    </div>
+    <div class="col s12 m3 l3">
+      <button if.bind="params.canBeSentBackToList" md-button click.delegate="backToMainItem()" class="btn-wide">Lista</button>
+    </div>
+    <div class="col s12 m3 l3">
+      <button if.bind="params.canBeDeleted" md-button click.delegate="deleteItem()" class="red btn-wide">Usuń</button>
+    </div>
+  </div>
+</template>

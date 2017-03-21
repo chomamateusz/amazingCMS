@@ -7,7 +7,7 @@ import {pl} from 'trumbowyg/dist/langs/pl.min.js';
 import {noembed} from 'trumbowyg/plugins/noembed/trumbowyg.noembed.js';
 import {colors} from 'trumbowyg/plugins/colors/trumbowyg.colors.js';
 import {base64} from 'trumbowyg/plugins/base64/trumbowyg.base64.js';
-import {ItemEdit} from 'itemEdit';
+import {ItemEdit} from 'itemEdit/itemEdit';
 
 @customAttribute('start-trumbowyg')
 @inject(Element, ItemEdit)

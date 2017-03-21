@@ -1,0 +1,11 @@
+{
+    "development": {
+        "name": "Test Application Dev",
+        "api": {
+            "key": "developmentonlykey938109283091",
+            "endpoint": "http://localhost/api/v1"
+        }
+    },
+    "staging": {},
+    "production": {}
+}

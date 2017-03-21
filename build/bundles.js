@@ -3,6 +3,7 @@ module.exports = {
     "dist/app-build": {
       "includes": [
         "[*.js]",
+        "*.json!text",
         "*.html!text",
         "*.css!text"
       ],

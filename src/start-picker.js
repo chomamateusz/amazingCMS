@@ -3,7 +3,7 @@ import {
     customAttribute,
     bindable
 } from 'aurelia-framework';
-import { ItemEdit } from 'itemEdit';
+import { ItemEdit } from 'itemEdit/itemEdit';
 import pickerjs from 'pickerjs';
 import moment from 'moment';
 

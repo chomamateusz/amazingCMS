@@ -28,11 +28,14 @@ import {
   FirebaseAuth
 } from 'firebaseAuth';
 
-@inject(ItemsDbService, SubitemsDbService, Router, DialogService, FirebaseAuth, 'nestedItemsSeparator', MainItemsDbService)
+import {AureliaConfiguration} from 'aurelia-configuration';
+
+@inject(ItemsDbService, SubitemsDbService, Router, DialogService, FirebaseAuth, 'nestedItemsSeparator', MainItemsDbService, AureliaConfiguration)
 export class ItemEdit {
 
-  constructor(itemsDbService, subitemsDbService, router, dialogService, firebaseAuth, nestedItemsSeparator, mainItemsDbService) {
+  constructor(itemsDbService, subitemsDbService, router, dialogService, firebaseAuth, nestedItemsSeparator, mainItemsDbService, aureliaConfiguration) {
     this.firebaseAuth = firebaseAuth;
+    this.aureliaConfiguration = aureliaConfiguration;
     this.dialogService = dialogService;
     this.itemsDbService = itemsDbService;
     this.subitemsDbService = subitemsDbService;

@@ -175,7 +175,6 @@ export class ItemEdit {
       });
 
     });
-
     return promise; // wait for data is loaded!
 
   }
@@ -206,73 +205,6 @@ export class ItemEdit {
     }
   }
 
-
-  checkChanges() {
-    var i = 0;
-    this.contentToChange = {};
-    for (var subitem in this.itemWorkingCopy.data) { // forEach for objects ;)
-      if ((this.itemOrginal.data[subitem] == undefined)) { // new subitem added after creation of data
-        console.log('ITEM-EDIT - New subitem: ', subitem, '!');
-        if (this.itemWorkingCopy.data[subitem] == undefined) {
-          this.itemWorkingCopy.data[subitem] = {};
-        }
-        if (this.itemWorkingCopy.data[subitem].val == undefined) {
-          this.itemWorkingCopy.data[subitem].val = '';
-        }
-        if (this.itemWorkingCopy.data[subitem].vals == undefined) {
-          this.itemWorkingCopy.data[subitem].vals = '';
-        }
-        this.contentToChange[this.itemKey + '/data/' + subitem + '/val'] = this.itemWorkingCopy.data[subitem].val;
-        this.contentToChange[this.itemKey + '/data/' + subitem + '/vals'] = this.itemWorkingCopy.data[subitem].vals;
-      } else {
-        if (this.itemOrginal.data[subitem].type == 'select-multiple') { // comparing arrays
-          console.log("ITEM-EDIT - sorting multiple select values array");
-          if (this.itemOrginal.data[subitem].val != undefined) {
-            this.itemOrginal.data[subitem].val.sort();
-          }
-          if (this.itemWorkingCopy.data[subitem].val != undefined) {
-            this.itemWorkingCopy.data[subitem].val.sort();
-          }
-          // ANOTHER REPRESENTATION OF SELECT MULTIPLE VALUES
-          console.log("ITEM-EDIT - creating object representation of select multiple values array");
-          var objectFromArray = {};
-          this.itemWorkingCopy.data[subitem].val.forEach(value => {
-            objectFromArray[value] = true;
-          });
-          this.itemWorkingCopy.data[subitem].vals = {};
-          this.itemWorkingCopy.data[subitem].vals.sorted = objectFromArray;
-          console.log("ITEM-EDIT - CREATED object representation of select multiple values array - ", this.itemWorkingCopy.data[subitem].vals.sorted);
-
-        }
-        if (!(JSON.stringify(this.itemOrginal.data[subitem].val) == JSON.stringify(this.itemWorkingCopy.data[subitem].val))) {
-          this.contentToChange[this.itemKey + '/data/' + subitem + '/val'] = this.itemWorkingCopy.data[subitem].val;
-          if (!(JSON.stringify(this.itemOrginal.data[subitem].vals) == JSON.stringify(this.itemWorkingCopy.data[subitem].vals))) {
-            this.contentToChange[this.itemKey + '/data/' + subitem + '/vals'] = this.itemWorkingCopy.data[subitem].vals;
-          }
-        } else {
-          console.log('ITEM-EDIT - No changes!');
-          console.log(subitem, this.itemOrginal.data[subitem].val);
-          this.contentChanged = false;
-        }
-      }
-    }
-    if (!(Object.keys(this.contentToChange).length === 0 && this.contentToChange.constructor === Object)) { // if this.contentToChange nat empty
-      console.log('ITEM-EDIT - Changes!', this.contentToChange);
-      console.log('ITEM-EDIT - Item orginal:', this.itemOrginal.data);
-      console.log('ITEM-EDIT - Items orginal:', this.itemsDbService.itemsOrginal);
-      console.log('ITEM-EDIT - Item WC:', this.itemWorkingCopy.data);
-      this.contentChanged = true;
-    }
-  }
-
-  changed(subitemName) {
-    //SLUG
-    if(subitemName == 'title' && (this.mainItem == 'posts' || this.mainItem == 'pages')){
-        this.itemWorkingCopy.data['name'].val = this.slugify(this.itemWorkingCopy.data['title'].val);
-    }
-    // TO DO in this place should be checked only this subitem that caused change not all of them!
-    this.checkChanges();
-  }
 
   slugify(text) {
     text = this.removeDiacritics(text);
@@ -324,15 +256,7 @@ export class ItemEdit {
     }).catch(() => {
 
     });
-    // this.imageUploadRef.imageUploadSubitem = this.itemWorkingCopy.data[subitemName]; // ref to WC
-    // this.imageUploadRef.imageUploadSubitemName = subitemName; // name - because it isnt present in WC (it is a key)
-    // this.imageUploadRef.imageUploadPath = this.mainItem + '/' + this.itemKey + '/' + subitemName; // path to upload
-    // this.imageUploadRef.cropperParams = {
-    //     width: subitemParams.width,
-    //     height: subitemParams.height
-    // }; // params such as diemnsions
-    // this.imageUploadRef.restart(this.itemWorkingCopy.data[subitemName].val, subitemParams.ratio); // this should restart cropper with url of actual image byt there is a CORS problem
-  }
+ }
 
   deleteItem() {
     return this.dialogService.open({

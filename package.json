@@ -70,6 +70,7 @@
       "aurelia-bootstrapper": "npm:aurelia-bootstrapper@^1.0.0-beta.1.2.0",
       "aurelia-configuration": "github:vheissu/aurelia-configuration@^1.0.17",
       "aurelia-dialog": "npm:aurelia-dialog@^1.0.0-beta.3.0.1",
+      "aurelia-event-aggregator": "npm:aurelia-event-aggregator@^1.0.1",
       "aurelia-fetch-client": "npm:aurelia-fetch-client@^1.0.0-beta.1.2.3",
       "aurelia-framework": "npm:aurelia-framework@^1.0.0-beta.1.2.2",
       "aurelia-history-browser": "npm:aurelia-history-browser@^1.0.0-beta.1.2.0",

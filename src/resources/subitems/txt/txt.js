@@ -11,7 +11,7 @@ import {
 export class TxtSubitem extends Subitem {
   @bindable subitem;
   @bindable value;
-  constructor() {
-    super();
+  constructor(...rest) {
+    super(...rest);
   }
 }

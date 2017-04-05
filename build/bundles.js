@@ -2,16 +2,15 @@ module.exports = {
   "bundles": {
     "dist/app-build": {
       "includes": [
-        "[*.js]",
-        "*.json!text",
-        "*.html!text",
-        "*.css!text"
+        "[*/**/*.js]",
+        "**/*.html!text",
+        "**/*.css!text"
       ],
       "options": {
         "inject": true,
         "minify": true,
-        "depCache": true,
-        "rev": false
+        "depCache": false,
+        "rev": true
       }
     },
     "dist/aurelia": {

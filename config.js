@@ -34,7 +34,7 @@ System.config({
     "moment": "npm:moment@2.17.1",
     "oribella-aurelia-sortable": "npm:oribella-aurelia-sortable@0.8.0",
     "pickerjs": "npm:pickerjs@0.1.1",
-    "text": "github:systemjs/plugin-text@0.0.7",
+    "text": "github:systemjs/plugin-text@0.0.9",
     "trumbowyg": "npm:trumbowyg@2.4.2",
     "github:Dogfalo/materialize@0.97.8": {
       "css": "github:systemjs/plugin-css@0.1.32",

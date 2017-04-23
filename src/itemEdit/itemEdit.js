@@ -13,6 +13,9 @@ import {
 import {
   MainItemsDbService
 } from "mainItemsDbService";
+import {
+  DbService
+} from "services/dbService";
 
 import {
   DialogService
@@ -30,16 +33,16 @@ import {
 
 import {AureliaConfiguration} from 'aurelia-configuration';
 
-@inject(ItemsDbService, SubitemsDbService, Router, DialogService, FirebaseAuth, 'nestedItemsSeparator', MainItemsDbService, AureliaConfiguration)
+@inject(ItemsDbService, SubitemsDbService, Router, DialogService, FirebaseAuth, 'nestedItemsSeparator', MainItemsDbService, AureliaConfiguration, DbService)
 export class ItemEdit {
 
-  constructor(itemsDbService, subitemsDbService, router, dialogService, firebaseAuth, nestedItemsSeparator, mainItemsDbService, aureliaConfiguration) {
+  constructor(itemsDbService, subitemsDbService, router, dialogService, firebaseAuth, nestedItemsSeparator, mainItemsDbService, aureliaConfiguration, dbService) {
     this.firebaseAuth = firebaseAuth;
     this.aureliaConfiguration = aureliaConfiguration;
     this.dialogService = dialogService;
-    this.itemsDbService = itemsDbService;
-    this.subitemsDbService = subitemsDbService;
-    this.mainItemsDbService = mainItemsDbService;
+    this.itemsDbService = dbService;
+    this.subitemsDbService = dbService;
+    this.mainItemsDbService = dbService;
     this.router = router;
     this.imageUploadSubitem = null;
     this.imageUploadSubitemName = null;
@@ -166,8 +169,8 @@ export class ItemEdit {
             });
 
           });
-        }).catch(() => {
-          console.log('ITEM-EDIT - no item passed from DB!');
+        }).catch((error) => {
+          console.log('ITEM-EDIT - no item passed from DB!', error);
           this.noItems = 'ITEM-EDIT - That item doesent exists!';
           reject();
         });

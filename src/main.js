@@ -1,13 +1,4 @@
 export function configure(aurelia) {
-  // main data db ref
-  let dbRef = firebase.database().ref('mainItemsData');
-  // subitemDefs db ref
-  let subitemRef = firebase.database().ref('subitemDefs');
-  // mainItemsRef db ref
-  let mainItemsRef = firebase.database().ref('mainItemsDefs');
-  // storage data refernece
-  let storageRef = firebase.storage().ref('mainItemsData');
-
   // nested items separator
   let nestedItemsSeparator = '~~!~~';
 
@@ -16,10 +7,6 @@ export function configure(aurelia) {
 
   return System.import(materialize).then(() => {
     aurelia.use
-      .instance('dbRef', dbRef)
-      .instance('subitemRef', subitemRef)
-      .instance('storageRef', storageRef)
-      .instance('mainItemsRef', mainItemsRef)
       .instance('nestedItemsSeparator', nestedItemsSeparator)
       .standardConfiguration()
       .developmentLogging()

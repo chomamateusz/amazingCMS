@@ -29,6 +29,7 @@ System.config({
     "css": "github:systemjs/plugin-css@0.1.32",
     "dogfalo/materialize": "github:dogfalo/materialize@0.97.8",
     "fetch": "github:github/fetch@1.0.0",
+    "firebase": "github:firebase/firebase-bower@3.8.0",
     "font-awesome": "npm:font-awesome@4.7.0",
     "jquery": "npm:jquery@2.2.4",
     "materialize": "github:Dogfalo/materialize@0.97.8",

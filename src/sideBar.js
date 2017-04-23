@@ -1,46 +1,46 @@
 import {
-    inject
+  inject
 } from "aurelia-framework";
 import {
-    Router
+  Router
 } from "aurelia-router";
 import {
-    MainItemsDbService
-} from "mainItemsDbService";
+  DbService
+} from "services/dbService";
 
-import{FirebaseAuth} from 'firebaseAuth';
+import { FirebaseAuth } from 'firebaseAuth';
 
-@inject(MainItemsDbService, Router, FirebaseAuth)
+@inject(DbService, Router, FirebaseAuth)
 export class SideBar {
-    constructor(mainItemsDbService, router, firebaseAuth) {
-        this.firebaseAuth = firebaseAuth;
-        this.mainItemsDbService = mainItemsDbService;
-        this.router = router;
-    }
+  constructor(dbService, router, firebaseAuth) {
+    this.firebaseAuth = firebaseAuth;
+    this.db = dbService;
+    this.router = router;
+  }
 
-    activate() {
-        this.mainItemsDbService.getMainItems().then(mainItems => {
-            this.mainItems = mainItems;
-            console.log('SIDE BAR - items loaded', this.mainItems);
-        });
-        console.log('SIDE BAR - activated', this.mainItems);
-    }
+  activate() {
+    this.db.getMainItems().then(mainItems => {
+      this.mainItems = mainItems;
+      console.log('SIDE BAR - items loaded', this.mainItems);
+    });
+    console.log('SIDE BAR - activated', this.mainItems);
+  }
 
-    goToDrag(mainItemName){
-        this.router.navigate('drag/'+mainItemName);
-    }
+  goToDrag(mainItemName) {
+    this.router.navigate('drag/' + mainItemName);
+  }
 
-    goToRoute(route){
-        this.router.navigate(route);
-    }
+  goToRoute(route) {
+    this.router.navigate(route);
+  }
 
-    extarnalLink(url){
-        window.location = url;
-    }
+  extarnalLink(url) {
+    window.location = url;
+  }
 
-    logout(){
-        this.firebaseAuth.logout().then(()=>{
-            this.goToRoute('login');
-        });
-    }
+  logout() {
+    this.firebaseAuth.logout().then(() => {
+      this.goToRoute('login');
+    });
+  }
 }

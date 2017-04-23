@@ -6,6 +6,7 @@ System.config({
     "github:*": "jspm_packages/github/*",
     "npm:*": "jspm_packages/npm/*"
   },
+
   map: {
     "aurelia-animator-css": "npm:aurelia-animator-css@1.0.0-beta.1.2.1",
     "aurelia-bootstrapper": "npm:aurelia-bootstrapper@1.0.0-beta.1.2.1",
@@ -26,7 +27,7 @@ System.config({
     "aurelia-templating-resources": "npm:aurelia-templating-resources@1.0.0-beta.1.2.6",
     "aurelia-templating-router": "npm:aurelia-templating-router@1.0.0-beta.1.2.1",
     "cropperjs": "npm:cropperjs@0.8.1",
-    "css": "github:systemjs/plugin-css@0.1.32",
+    "css": "github:systemjs/plugin-css@0.1.33",
     "dogfalo/materialize": "github:dogfalo/materialize@0.97.8",
     "fetch": "github:github/fetch@1.0.0",
     "firebase": "github:firebase/firebase-bower@3.8.0",
@@ -34,16 +35,17 @@ System.config({
     "jquery": "npm:jquery@2.2.4",
     "materialize": "github:Dogfalo/materialize@0.97.8",
     "moment": "npm:moment@2.17.1",
+    "nprogress": "github:rstacruz/nprogress@0.2.0",
     "oribella-aurelia-sortable": "npm:oribella-aurelia-sortable@0.8.0",
     "pickerjs": "npm:pickerjs@0.1.1",
     "text": "github:systemjs/plugin-text@0.0.9",
     "trumbowyg": "npm:trumbowyg@2.4.2",
     "github:Dogfalo/materialize@0.97.8": {
-      "css": "github:systemjs/plugin-css@0.1.32",
+      "css": "github:systemjs/plugin-css@0.1.33",
       "jquery": "npm:jquery@2.2.4"
     },
     "github:dogfalo/materialize@0.97.8": {
-      "css": "github:systemjs/plugin-css@0.1.32",
+      "css": "github:systemjs/plugin-css@0.1.33",
       "jquery": "npm:jquery@2.2.4"
     },
     "github:jspm/nodelibs-assert@0.1.0": {
@@ -60,6 +62,9 @@ System.config({
     },
     "github:jspm/nodelibs-vm@0.1.0": {
       "vm-browserify": "npm:vm-browserify@0.0.4"
+    },
+    "github:rstacruz/nprogress@0.2.0": {
+      "css": "github:systemjs/plugin-css@0.1.33"
     },
     "github:vheissu/aurelia-configuration@1.0.17": {
       "aurelia-binding": "npm:aurelia-binding@1.2.0",
@@ -232,7 +237,7 @@ System.config({
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
     "npm:font-awesome@4.7.0": {
-      "css": "github:systemjs/plugin-css@0.1.32"
+      "css": "github:systemjs/plugin-css@0.1.33"
     },
     "npm:inherits@2.0.1": {
       "util": "github:jspm/nodelibs-util@0.1.0"

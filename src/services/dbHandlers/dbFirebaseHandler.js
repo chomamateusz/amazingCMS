@@ -6,8 +6,6 @@ import * as firebase from 'firebase';
 export class DbFirebaseHandler {
 	constructor() {
 		this.initializeFirebase();
-    this.items = [];
-    this.subitems = [];
     this.mainItems = [];
 	}
 
@@ -47,9 +45,8 @@ export class DbFirebaseHandler {
 						tmpItem.key = itemSnapshot.key; // store key in value
 						tmpSubitems.push(tmpItem);
 					});
-					this.subitems[mainItemName] = JSON.parse(JSON.stringify(tmpSubitems));
-					console.log('subitems form DB: ', this.subitems);
-					resolve(this.subitems[mainItemName]);
+					console.log('subitems form DB: ', JSON.parse(JSON.stringify(tmpSubitems)));
+					resolve(JSON.parse(JSON.stringify(tmpSubitems)));
 				}
 			});
 		});
@@ -68,8 +65,7 @@ export class DbFirebaseHandler {
 						tmpMainItem.key = mainItemSnapshot.key; // store key in value
 						tmpMainItems.push(tmpMainItem);
 					});
-					this.mainItems = JSON.parse(JSON.stringify(tmpMainItems));
-					resolve(this.mainItems);
+					resolve(JSON.parse(JSON.stringify(tmpMainItems)));
 				}
 			});
 		});
@@ -78,9 +74,9 @@ export class DbFirebaseHandler {
 
 	getMainItem(mainItemName) {
 		var promise = new Promise((resolve, reject) => {
-			this.getMainItems().then(() => {
+			this.getMainItems().then((mainItems) => {
 				var i = 0;
-				this.mainItems.forEach((mainItem) => {
+				mainItems.forEach((mainItem) => {
 					console.log('mainItem.key: ', mainItem.key, 'mainItemName', mainItemName);
 					if (mainItem.key == mainItemName) {
 						resolve(mainItem);
@@ -116,9 +112,8 @@ export class DbFirebaseHandler {
 					tmpItems.push(tmpItem);
 				});
 				if (reverse == true) { tmpItems.reverse(); }
-				this.items[mainItemName] = JSON.parse(JSON.stringify(tmpItems));
-				console.log('ITEMS-DB-SERVICE: items form DB:', this.items);
-				return this.items[mainItemName];
+				console.log('ITEMS-DB-SERVICE: items form DB:', JSON.parse(JSON.stringify(tmpItems)));
+				return JSON.parse(JSON.stringify(tmpItems));
 			}
 		}
 
@@ -169,11 +164,12 @@ export class DbFirebaseHandler {
 
   getItem(mainItemName, itemKey, orderBy) {
     var promise = new Promise((resolve, reject) => {
-      this.getItems(mainItemName, orderBy).then(() => { // get items if they are not loaded
+      this.getItems(mainItemName, orderBy).then((items) => { // get items if they are not loaded
         var i = 0;
-        this.items[mainItemName].forEach((item) => {
+        items.forEach((item) => {
           if (item.meta.key == itemKey) {
-            resolve([this.items[mainItemName][i], this.items[mainItemName][i]]); // there is an item with that key | i cant find the way to resolve with 2 args so it is resolved with array
+            // TODO why two arguments in resolve?
+            resolve([items[i], items[i]]); // there is an item with that key | i cant find the way to resolve with 2 args so it is resolved with array
           }
           i++;
         });
